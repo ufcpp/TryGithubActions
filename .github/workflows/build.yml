@@ -9,6 +9,7 @@ on:
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_VERSION: 5.0.100-rc.1.20452.10
 
 jobs:
   build:
@@ -20,7 +21,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100-rc.1.20452.10
+        dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Install dependencies
       run: dotnet restore
     - name: Build
@@ -37,7 +38,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100-rc.1.20452.10
+        dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Pack
       run: |
         arrTag=(${GITHUB_REF//\// })
