@@ -43,7 +43,7 @@ jobs:
         arrTag=(${GITHUB_REF//\// })
         VERSION="${arrTag[2]}"
         echo Version: $VERSION
-        dotnet pack -c Release -p:PackageVersion=$VERSION ClassLibrary1/ClassLibrary1.csproj
+        dotnet pack ClassLibrary1 -c Release -p:PackageVersion=$VERSION
     - uses: actions/upload-artifact@v2
       with:
         name: nupkg
