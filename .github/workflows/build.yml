@@ -3,6 +3,9 @@ name: .NET Core
 on:
   push:
   pull_request:
+  release:
+    types:
+      - published
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -24,3 +27,14 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
+  deploy:
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo version
+      run: |
+        arrTag=(${GITHUB_REF//\// })
+        VERSION="${arrTag[2]}"
+        echo Version: $VERSION
